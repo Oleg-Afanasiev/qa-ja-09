@@ -15,9 +15,9 @@ public class ExcelWriteDemo {
                 Workbook workbook = new SXSSFWorkbook();
         ) {
             Sheet sheet = workbook.createSheet("sheet-demo");
-            Row row = sheet.createRow(1);
+            Row row = sheet.createRow(0);
             Cell cell1 = row.createCell(0);
-            cell1.setCellValue(new XSSFRichTextString("Hello"));
+            cell1.setCellValue("hello");
             Cell cell2 = row.createCell(1);
             cell2.setCellValue(123);
 
