@@ -34,5 +34,33 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.21</version>
         </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>4.0.0-alpha-6</version>
+        </dependency>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>7.3.0</version>
+        </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <!--Плагин для управления запуском тестов-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M4</version>
+                <configuration>
+                    <!--Путь к конфигурации testng.xml-->
+                    <suiteXmlFiles>
+                        <suiteXmlFile>suits/testng.xml</suiteXmlFile>
+                    </suiteXmlFiles>
+                    <argLine>-Dtestng.dtd.http=true</argLine>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
