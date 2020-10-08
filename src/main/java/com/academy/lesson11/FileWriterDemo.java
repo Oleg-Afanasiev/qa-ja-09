@@ -1,6 +1,8 @@
 package com.academy.lesson11;
 
-import java.io.*;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 public class FileWriterDemo {
     public static void main(String[] args) {

@@ -1,66 +1,37 @@
 package com.academy.automation;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
-import org.testng.annotations.*;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Ignore;
+import org.testng.annotations.Test;
+import org.yaml.snakeyaml.nodes.ScalarNode;
 
-import java.util.concurrent.TimeUnit;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
-import static org.testng.Assert.fail;
-
-public class LoginTests {
-    private WebDriver driver;
-    private StringBuffer verificationErrors = new StringBuffer();
-
-    @Parameters("browser")
-    @BeforeClass(alwaysRun = true)
-    public void setUp(String browser) throws Exception {
-//        String path = System.getProperty("cfg");
-//        System.out.println(path);
-//
-//        Properties properties = new Properties();
-//        properties.load(new FileInputStream(path));
-//        String chromeDriver = properties.getProperty("driver.chrome");
-//        System.out.println(chromeDriver);
-
-        if (browser.equals("chrome")) {
-            System.setProperty("webdriver.chrome.driver", "D:/programming/teaching/qa-09-maven/drivers/chromedriver.exe");
-            driver = new ChromeDriver();
-
-        } else if (browser.equals("firefox")) {
-            System.setProperty("webdriver.gecko.driver", "D:/programming/teaching/qa-09-maven/drivers/geckodriver.exe");
-            driver = new FirefoxDriver();
-
-        } else if (browser.equals("edge")) {
-            System.setProperty("webdriver.edge.driver", "D:/programming/teaching/qa-09-maven/drivers/msedgedriver.exe");
-            driver = new EdgeDriver();
-        }
-        else {
-            System.setProperty("webdriver.chrome.driver", "D:/programming/teaching/qa-09-maven/drivers/chromedriver.exe");
-            driver = new ChromeDriver();
-        }
-
-        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-    }
-
-    @Test
-    public void testLoginError() throws Exception {
+public class LoginTests extends BaseTest {
+    @Test(dataProvider = "loginErrorData")
+    public void testLoginError(String username, String passw, String expectedMsg) throws Exception {
         driver.get("http://automationpractice.com/index.php");
         WebElement signInLink = driver.findElement(By.linkText("Sign in"));
         signInLink.click();
 
         driver.findElement(By.id("email")).click();
         driver.findElement(By.id("email")).clear();
-        driver.findElement(By.id("email")).sendKeys("username");
+        driver.findElement(By.id("email")).sendKeys(username);
         driver.findElement(By.id("passwd")).clear();
-        driver.findElement(By.id("passwd")).sendKeys("password");
+        driver.findElement(By.id("passwd")).sendKeys(passw);
         driver.findElement(By.xpath("//button[@id='SubmitLogin']/span")).click();
-        Assert.assertEquals(driver.findElement(By.xpath("//div[@id='center_column']/div/ol/li")).getText(), "Invalid email address.");
+        String actualMsg = driver.findElement(By.xpath("//div[@id='center_column']/div/ol/li")).getText();
+
+        Assert.assertEquals(actualMsg, expectedMsg);
+//        Assert.assertTrue(actualMsg.contains(expectedMsg));
     }
 
     @Test
@@ -74,12 +45,35 @@ public class LoginTests {
     public void testLoginSuccess() {
     }
 
-    @AfterClass(alwaysRun = true)
-    public void tearDown() throws Exception {
-        driver.quit();
-        String verificationErrorString = verificationErrors.toString();
-        if (!"".equals(verificationErrorString)) {
-            fail(verificationErrorString);
+    @DataProvider(name = "loginErrorData")
+    public Object[][] loginErrorDataProvider() throws FileNotFoundException {
+        String path = "D:/programming/teaching/qa-09-maven/test-data/login-tests.csv";
+        Scanner scanner = new Scanner(new FileInputStream(path), StandardCharsets.UTF_8);
+        List<String> lines = new ArrayList<>();
+        // чтение файла с данными построчно
+        while (scanner.hasNextLine()) {
+            String nextLine = scanner.nextLine();
+            System.out.println(nextLine);
+            lines.add(nextLine);
         }
+        scanner.close();
+        Object[][] data = new Object[lines.size()][3];
+
+        for (int i = 0; i < lines.size(); i++) {
+            String[] lineParts = lines.get(i).split(",");
+
+            // можно сделать через чикл ДЗ
+            data[i][0] = lineParts[0];
+            data[i][1] = lineParts[1];
+            data[i][2] = lineParts[2];
+        }
+
+        return data;
+
+//        return new Object[][] {
+//                {"user", "123", "Invalid email address."},
+//                {"", "123", "An email address required."},
+//        };
     }
+
 }
