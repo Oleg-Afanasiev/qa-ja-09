@@ -3,41 +3,48 @@ package com.academy.automation;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
+import org.testng.Assert;
+import org.testng.annotations.*;
 
-import java.io.FileInputStream;
-import java.io.FileReader;
-import java.time.Duration;
-import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
-import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.fail;
 
 public class LoginTests {
     private WebDriver driver;
     private StringBuffer verificationErrors = new StringBuffer();
 
+    @Parameters("browser")
     @BeforeClass(alwaysRun = true)
-    public void setUp() throws Exception {
-        String path = System.getProperty("cfg");
-        System.out.println(path);
+    public void setUp(String browser) throws Exception {
+//        String path = System.getProperty("cfg");
+//        System.out.println(path);
+//
+//        Properties properties = new Properties();
+//        properties.load(new FileInputStream(path));
+//        String chromeDriver = properties.getProperty("driver.chrome");
+//        System.out.println(chromeDriver);
 
-        Properties properties = new Properties();
-        properties.load(new FileInputStream(path));
-        String chromeDriver = properties.getProperty("driver.chrome");
-        System.out.println(chromeDriver);
+        if (browser.equals("chrome")) {
+            System.setProperty("webdriver.chrome.driver", "D:/programming/teaching/qa-09-maven/drivers/chromedriver.exe");
+            driver = new ChromeDriver();
 
-        System.setProperty("webdriver.chrome.driver", "D:/programming/teaching/qa-09-maven/drivers/chromedriver.exe");
-        System.setProperty("webdriver.gecko.driver", "D:/programming/teaching/qa-09-maven/drivers/geckodriver.exe");
-        System.setProperty("webdriver.edge.driver", "D:/programming/teaching/qa-09-maven/drivers/msedgedriver.exe");
-        driver = new EdgeDriver();
+        } else if (browser.equals("firefox")) {
+            System.setProperty("webdriver.gecko.driver", "D:/programming/teaching/qa-09-maven/drivers/geckodriver.exe");
+            driver = new FirefoxDriver();
+
+        } else if (browser.equals("edge")) {
+            System.setProperty("webdriver.edge.driver", "D:/programming/teaching/qa-09-maven/drivers/msedgedriver.exe");
+            driver = new EdgeDriver();
+        }
+        else {
+            System.setProperty("webdriver.chrome.driver", "D:/programming/teaching/qa-09-maven/drivers/chromedriver.exe");
+            driver = new ChromeDriver();
+        }
+
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     }
 
@@ -53,15 +60,17 @@ public class LoginTests {
         driver.findElement(By.id("passwd")).clear();
         driver.findElement(By.id("passwd")).sendKeys("password");
         driver.findElement(By.xpath("//button[@id='SubmitLogin']/span")).click();
-        assertEquals(driver.findElement(By.xpath("//div[@id='center_column']/div/ol/li")).getText(), "Invalid email address.");
+        Assert.assertEquals(driver.findElement(By.xpath("//div[@id='center_column']/div/ol/li")).getText(), "Invalid email address.");
     }
 
     @Test
+    @Ignore
     public void testLoginErrorCase2() {
 
     }
 
     @Test
+    @Ignore
     public void testLoginSuccess() {
     }
 
