@@ -29,7 +29,8 @@ public class BaseTest {
 //        System.out.println(chromeDriver);
 
         if (browser.equals("chrome")) {
-            System.setProperty("webdriver.chrome.driver", "D:/programming/teaching/qa-09-maven/drivers/chromedriver.exe");
+//            System.setProperty("webdriver.chrome.driver", "D:/programming/teaching/qa-09-maven/drivers/chromedriver.exe");
+            System.setProperty("webdriver.chrome.driver", "D:/app/drivers/chromedriver.exe");
             driver = new ChromeDriver();
 
         } else if (browser.equals("firefox")) {

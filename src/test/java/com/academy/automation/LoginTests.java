@@ -1,5 +1,7 @@
 package com.academy.automation;
 
+import com.academy.automation.page.HomePage;
+import com.academy.automation.page.LoginPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
@@ -34,6 +36,31 @@ public class LoginTests extends BaseTest {
 //        Assert.assertTrue(actualMsg.contains(expectedMsg));
     }
 
+    @Test(dataProvider = "loginErrorData")
+    public void testLoginErrorUsingPage(String username, String passw, String expectedMsg) {
+        HomePage homePage = new HomePage(driver);
+        homePage.goToHome();
+        LoginPage loginPage = homePage.clickSignIn();
+        loginPage.fillEmail(username);
+        loginPage.fillPassword(passw);
+        loginPage.submit();
+        String actualMsg = loginPage.getErrorMessage();
+        Assert.assertEquals(actualMsg, expectedMsg);
+    }
+
+    @Test(dataProvider = "loginErrorData")
+    public void testLoginErrorUsingPage2(String username, String passw, String expectedMsg) {
+        String actualMsg = new HomePage(driver)
+                .goToHome()
+                .clickSignIn()
+                .fillEmail(username)
+                .fillPassword(passw)
+                .submit()
+                .getErrorMessage();
+
+        Assert.assertEquals(actualMsg, expectedMsg);
+    }
+
     @Test
     @Ignore
     public void testLoginErrorCase2() {
@@ -47,7 +74,7 @@ public class LoginTests extends BaseTest {
 
     @DataProvider(name = "loginErrorData")
     public Object[][] loginErrorDataProvider() throws FileNotFoundException {
-        String path = "D:/programming/teaching/qa-09-maven/test-data/login-tests.csv";
+        String path = "D:/teaching/ja-qa/09/project/test-data/login-tests.csv";
         Scanner scanner = new Scanner(new FileInputStream(path), StandardCharsets.UTF_8);
         List<String> lines = new ArrayList<>();
         // чтение файла с данными построчно
