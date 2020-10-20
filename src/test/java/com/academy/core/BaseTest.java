@@ -8,8 +8,10 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.testng.annotations.*;
 
+import java.io.FileInputStream;
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 import static org.testng.Assert.fail;
@@ -23,17 +25,17 @@ public class BaseTest {
     @Parameters("browser")
     @BeforeClass(alwaysRun = true)
     public void setUp(@Optional("chrome") String browser) throws Exception {
-//        String path = System.getProperty("cfg");
-//        System.out.println(path);
-//
-//        Properties properties = new Properties();
-//        properties.load(new FileInputStream(path));
-//        String chromeDriver = properties.getProperty("driver.chrome");
-//        System.out.println(chromeDriver);
+        String path = System.getProperty("cfg");
+        System.out.println(path);
+
+        Properties properties = new Properties();
+        properties.load(new FileInputStream(path));
+        String chromeDriver = properties.getProperty("driver.chrome");
+        String screenDir = properties.getProperty("screen.dir");
 
         if (browser.equals("chrome")) {
 //            System.setProperty("webdriver.chrome.driver", "D:/programming/teaching/qa-09-maven/drivers/chromedriver.exe");
-            System.setProperty("webdriver.chrome.driver", "D:/app/drivers/chromedriver.exe");
+            System.setProperty("webdriver.chrome.driver", chromeDriver);
             driver = new EventFiringWebDriver(new ChromeDriver());
 
         } else if (browser.equals("firefox")) {
@@ -50,7 +52,7 @@ public class BaseTest {
         }
 
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.register(new WebDriverEventListenerImpl("D:/tmp/screens"));
+        driver.register(new WebDriverEventListenerImpl(screenDir));
     }
 
     @AfterClass(alwaysRun = true)
