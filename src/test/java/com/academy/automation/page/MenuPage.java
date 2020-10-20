@@ -1,5 +1,6 @@
 package com.academy.automation.page;
 
+import com.academy.core.BasePage;
 import org.openqa.selenium.WebDriver;
 
 public class MenuPage extends BasePage {

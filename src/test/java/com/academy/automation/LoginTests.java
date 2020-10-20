@@ -2,22 +2,27 @@ package com.academy.automation;
 
 import com.academy.automation.page.HomePage;
 import com.academy.automation.page.LoginPage;
+import com.academy.core.BaseTest;
+import com.academy.lesson11.LoggerDemo;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Ignore;
-import org.testng.annotations.Test;
-import org.yaml.snakeyaml.nodes.ScalarNode;
+import org.testng.annotations.*;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.*;
+import java.lang.reflect.Method;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
 public class LoginTests extends BaseTest {
+
     @Test(dataProvider = "loginErrorData")
     public void testLoginError(String username, String passw, String expectedMsg) throws Exception {
         driver.get("http://automationpractice.com/index.php");
@@ -72,10 +77,14 @@ public class LoginTests extends BaseTest {
     public void testLoginSuccess() {
     }
 
+    // TODO
     @DataProvider(name = "loginErrorData")
-    public Object[][] loginErrorDataProvider() throws FileNotFoundException {
+    public Object[][] loginErrorDataProvider() throws IOException {
         String path = "D:/teaching/ja-qa/09/project/test-data/login-tests.csv";
         Scanner scanner = new Scanner(new FileInputStream(path), StandardCharsets.UTF_8);
+//        Workbook workbook = new SXSSFWorkbook()
+//        workbook
+//         BufferedReader fr  = new FileReader(path, StandardCharsets.UTF_8);
         List<String> lines = new ArrayList<>();
         // чтение файла с данными построчно
         while (scanner.hasNextLine()) {

@@ -1,6 +1,7 @@
 package com.academy.automation;
 
 import com.academy.automation.page.WomenPage;
+import com.academy.core.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 

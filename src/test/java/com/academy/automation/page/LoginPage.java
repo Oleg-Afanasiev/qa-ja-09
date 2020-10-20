@@ -1,15 +1,15 @@
 package com.academy.automation.page;
 
+import com.academy.core.BasePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
 public class LoginPage extends BasePage {
     @FindBy(id="email")
     private WebElement emailField;
 
-    @FindBy(id="passwd")
+    @FindBy(id="passwd1")
     private WebElement passwordField;
 
     @FindBy(id="SubmitLogin")
