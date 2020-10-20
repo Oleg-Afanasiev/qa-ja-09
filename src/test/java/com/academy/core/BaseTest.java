@@ -26,9 +26,10 @@ public class BaseTest {
     @Parameters("browser")
     @BeforeClass(alwaysRun = true)
     public void setUp(@Optional("chrome") String browser) throws Exception {
+        // Ищем путь к конфигам по ключу
         String path = System.getProperty("cfg");
         InputStream is;
-        if (path == null)
+        if (path == null) // иначе берем конфиги из рессурсов
             is = this.getClass().getClassLoader().getResourceAsStream("demo.properties");
         else
             is = new FileInputStream(path);
