@@ -9,6 +9,7 @@ import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.testng.annotations.*;
 
 import java.io.FileInputStream;
+import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Properties;
@@ -26,10 +27,13 @@ public class BaseTest {
     @BeforeClass(alwaysRun = true)
     public void setUp(@Optional("chrome") String browser) throws Exception {
         String path = System.getProperty("cfg");
-        System.out.println(path);
-
+        InputStream is;
+        if (path == null)
+            is = this.getClass().getClassLoader().getResourceAsStream("demo.properties");
+        else
+            is = new FileInputStream(path);
         Properties properties = new Properties();
-        properties.load(new FileInputStream(path));
+        properties.load(is);
         String chromeDriver = properties.getProperty("driver.chrome");
         String screenDir = properties.getProperty("screen.dir");
 
