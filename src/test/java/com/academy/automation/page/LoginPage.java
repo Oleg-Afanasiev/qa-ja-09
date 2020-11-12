@@ -9,7 +9,7 @@ public class LoginPage extends BasePage {
     @FindBy(id="email")
     private WebElement emailField;
 
-    @FindBy(id="passwd1")
+    @FindBy(id="passwd")
     private WebElement passwordField;
 
     @FindBy(id="SubmitLogin")

@@ -4,7 +4,7 @@
 <!--Конфигурация для testNG фреймворка-->
 <suite name="Base Suite">
     <test name="Login Tests for edge">
-<!--        <parameter name="browser" value="edge" />-->
+        <parameter name="browser" value="safari" />
         <classes>
             <class name="com.academy.automation.LoginTests" />
         </classes>

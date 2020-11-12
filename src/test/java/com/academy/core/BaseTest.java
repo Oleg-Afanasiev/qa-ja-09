@@ -5,6 +5,7 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.testng.annotations.*;
 
@@ -44,12 +45,14 @@ public class BaseTest {
             driver = new EventFiringWebDriver(new ChromeDriver());
 
         } else if (browser.equals("firefox")) {
-            System.setProperty("webdriver.gecko.driver", "D:/programming/teaching/qa-09-maven/drivers/geckodriver.exe");
+            System.setProperty("webdriver.gecko.driver", "D:/app/drivers/geckodriver.exe");
             driver = new EventFiringWebDriver(new FirefoxDriver());
 
         } else if (browser.equals("edge")) {
             System.setProperty("webdriver.edge.driver", "D:/programming/teaching/qa-09-maven/drivers/msedgedriver.exe");
             driver = new EventFiringWebDriver(new EdgeDriver());
+        } else if (browser.equals("safari")) {
+            driver = new EventFiringWebDriver(new SafariDriver());
         }
         else {
             System.setProperty("webdriver.chrome.driver", "D:/programming/teaching/qa-09-maven/drivers/chromedriver.exe");
