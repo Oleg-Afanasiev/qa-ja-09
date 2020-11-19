@@ -19,6 +19,7 @@ public class LoginTests {
         Configuration.browser = "chrome";
         Configuration.baseUrl = "http://automationpractice.com/index.php";
         Configuration.startMaximized = true;
+//        Configuration.headless = true;
 //        Configuration.timeout = 10;
     }
 
