@@ -3,10 +3,17 @@
 
 <!--Конфигурация для testNG фреймворка-->
 <suite name="Base Suite">
-    <test name="Login Tests for edge">
-        <parameter name="browser" value="safari" />
+<!--    <test name="Login Tests for edge">-->
+<!--        <parameter name="browser" value="safari" />-->
+<!--        <classes>-->
+<!--            <class name="com.academy.automation.LoginTests" />-->
+<!--        </classes>-->
+<!--    </test>-->
+
+    <test name="Login Tests using selenide">
+<!--        <parameter name="browser" value="chrome" />-->
         <classes>
-            <class name="com.academy.automation.LoginTests" />
+            <class name="com.academy.automation.selenide.LoginTests" />
         </classes>
     </test>
 <!--    <test name="Login Tests for chrome">-->
