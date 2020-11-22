@@ -1,0 +1,6 @@
+*.iml
+tmp.txt
+/out/
+target/
+/.idea/
+/build/
