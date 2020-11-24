@@ -1,6 +1,7 @@
 package com.academy.automation.page;
 
 import com.academy.core.BasePage;
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -22,6 +23,7 @@ public class LoginPage extends BasePage {
         super(driver);
     }
 
+    @Step("Вводим email {0}")
     public LoginPage fillEmail(String email) {
 //        emailField.clear();
 //        emailField.sendKeys(email);
@@ -29,6 +31,7 @@ public class LoginPage extends BasePage {
         return this;
     }
 
+    @Step("Вводим пароль {0}")
     public LoginPage fillPassword(String password) {
 //        passwordField.clear();
 //        passwordField.sendKeys(password);
@@ -36,6 +39,7 @@ public class LoginPage extends BasePage {
         return this;
     }
 
+    @Step("Нажимаем submit")
     public LoginPage submit() {
         submitButton.click();
         return this;

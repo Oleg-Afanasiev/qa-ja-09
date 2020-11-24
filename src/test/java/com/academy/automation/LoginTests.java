@@ -4,6 +4,7 @@ import com.academy.automation.page.HomePage;
 import com.academy.automation.page.LoginPage;
 import com.academy.core.BaseTest;
 import com.academy.lesson11.LoggerDemo;
+import io.qameta.allure.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -41,6 +42,11 @@ public class LoginTests extends BaseTest {
 //        Assert.assertTrue(actualMsg.contains(expectedMsg));
     }
 
+    @Description("Тест логин формы")
+    @Issues({@Issue("1456"), @Issue("1234")})
+    @Severity(SeverityLevel.CRITICAL)
+    @Link("https://example.org")
+    @Link(name = "allure", type = "mylink")
     @Test(dataProvider = "loginErrorData")
     public void testLoginErrorUsingPage(String username, String passw, String expectedMsg) {
         HomePage homePage = new HomePage(driver);

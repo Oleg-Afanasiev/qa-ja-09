@@ -81,6 +81,13 @@
             <artifactId>selenide</artifactId>
             <version>5.15.1</version>
         </dependency>
+
+        <!--allure-->
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-testng</artifactId>
+            <version>2.13.6</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -98,8 +105,15 @@
                     <suiteXmlFiles>
                         <suiteXmlFile>suits/testng.xml</suiteXmlFile>
                     </suiteXmlFiles>
-                    <argLine>-Dtestng.dtd.http=true</argLine>
+                    <argLine>-Dtestng.dtd.http=true -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/1.9.5/aspectjweaver-1.9.5.jar"</argLine>
                 </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.aspectj</groupId>
+                        <artifactId>aspectjweaver</artifactId>
+                        <version>1.9.5</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>
