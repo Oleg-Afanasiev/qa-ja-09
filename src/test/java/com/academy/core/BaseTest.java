@@ -1,7 +1,9 @@
 package com.academy.core;
 
+import io.qameta.allure.Attachment;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.OutputType;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -81,5 +83,10 @@ public class BaseTest {
     @AfterMethod
     public void testComplete(Method method) {
         LOG.info("test {} finished.", method.getName());
+    }
+
+    @Attachment(value = "Page screenshot", type = "image/png")
+    public byte[] makeScreenshot() {
+        return driver.getScreenshotAs(OutputType.BYTES);
     }
 }

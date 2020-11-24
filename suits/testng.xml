@@ -22,5 +22,8 @@
 <!--            <class name="com.academy.automation.LoginTests" />-->
 <!--        </classes>-->
 <!--    </test>-->
+    <listeners>
+        <listener class-name="com.academy.core.TestListener"></listener>
+    </listeners>
 
 </suite>

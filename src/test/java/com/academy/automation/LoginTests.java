@@ -3,25 +3,24 @@ package com.academy.automation;
 import com.academy.automation.page.HomePage;
 import com.academy.automation.page.LoginPage;
 import com.academy.core.BaseTest;
-import com.academy.lesson11.LoggerDemo;
+import com.academy.core.TestListener;
 import io.qameta.allure.*;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
-import org.testng.annotations.*;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Ignore;
+import org.testng.annotations.Listeners;
+import org.testng.annotations.Test;
 
-import java.io.*;
-import java.lang.reflect.Method;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
+@Listeners(TestListener.class)
 public class LoginTests extends BaseTest {
 
     @Test(dataProvider = "loginErrorData")
