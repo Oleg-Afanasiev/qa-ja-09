@@ -1,6 +1,7 @@
 package com.academy.automation.selenide.page;
 
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 import org.openqa.selenium.support.FindBy;
 
 import static com.codeborne.selenide.Selenide.page;
@@ -9,7 +10,7 @@ public class LoginPage {
     @FindBy(id="email")
     private SelenideElement emailField;
 
-    @FindBy(id="passwd")
+    @FindBy(id="passwd1")
     private SelenideElement passwordField;
 
     @FindBy(id="SubmitLogin")
@@ -18,11 +19,13 @@ public class LoginPage {
     @FindBy(xpath = "//div[@id='center_column']/div/ol/li")
     private SelenideElement errorMessage;
 
+    @Step("Вводим email {0}")
     public LoginPage fillEmail(String email) {
         emailField.sendKeys(email);
         return page(LoginPage.class);
     }
 
+    @Step("Вводим пароль {0}")
     public LoginPage fillPassword(String password) {
         passwordField.sendKeys(password);
         return page(LoginPage.class);

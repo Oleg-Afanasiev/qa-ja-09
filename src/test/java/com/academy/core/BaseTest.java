@@ -20,6 +20,7 @@ import java.util.concurrent.TimeUnit;
 
 import static org.testng.Assert.fail;
 
+@Listeners(TestListener.class)
 public class BaseTest {
     private static Logger LOG = LogManager.getLogger(BaseTest.class.getName());
 

@@ -2,6 +2,9 @@ package com.academy.automation.selenide;
 
 import com.academy.automation.selenide.page.HomePage;
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.logevents.SelenideLogger;
+import io.qameta.allure.Description;
+import io.qameta.allure.selenide.AllureSelenide;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
@@ -21,8 +24,13 @@ public class LoginTests {
         Configuration.startMaximized = true;
 //        Configuration.headless = true;
 //        Configuration.timeout = 10;
+        SelenideLogger.addListener("AllureSelenide", new AllureSelenide()
+                .screenshots(true)
+                .savePageSource(false)
+        );
     }
 
+    @Description("Selenide test login form")
     @Test(dataProvider = "loginErrorProvider")
     public void testLoginError(String username, String password, String expectedMsg) {
 //        open(Configuration.baseUrl);

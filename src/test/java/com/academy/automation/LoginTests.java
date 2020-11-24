@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-@Listeners(TestListener.class)
 public class LoginTests extends BaseTest {
 
     @Test(dataProvider = "loginErrorData")
