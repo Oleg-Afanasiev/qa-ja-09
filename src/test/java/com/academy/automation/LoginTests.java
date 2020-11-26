@@ -84,7 +84,8 @@ public class LoginTests extends BaseTest {
     // TODO
     @DataProvider(name = "loginErrorData")
     public Object[][] loginErrorDataProvider() throws IOException {
-        String path = "D:/teaching/ja-qa/09/project/test-data/login-tests.csv";
+        String path = properties.getProperty("login.data");
+
         Scanner scanner = new Scanner(new FileInputStream(path), StandardCharsets.UTF_8);
 //        Workbook workbook = new SXSSFWorkbook()
 //        workbook

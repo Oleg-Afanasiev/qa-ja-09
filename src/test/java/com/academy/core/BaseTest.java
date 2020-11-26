@@ -12,6 +12,8 @@ import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.testng.annotations.*;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -26,19 +28,13 @@ public class BaseTest {
 
     protected EventFiringWebDriver driver;
     private final StringBuffer verificationErrors = new StringBuffer();
+    protected Properties properties;
 
     @Parameters("browser")
     @BeforeClass(alwaysRun = true)
     public void setUp(@Optional("chrome") String browser) throws Exception {
-        // Ищем путь к конфигам по ключу
-        String path = System.getProperty("cfg");
-        InputStream is;
-        if (path == null) // иначе берем конфиги из рессурсов
-            is = this.getClass().getClassLoader().getResourceAsStream("demo.properties");
-        else
-            is = new FileInputStream(path);
-        Properties properties = new Properties();
-        properties.load(is);
+        initProperties();
+
         String chromeDriver = properties.getProperty("driver.chrome");
         String screenDir = properties.getProperty("screen.dir");
 
@@ -89,5 +85,17 @@ public class BaseTest {
     @Attachment(value = "Page screenshot", type = "image/png")
     public byte[] makeScreenshot() {
         return driver.getScreenshotAs(OutputType.BYTES);
+    }
+
+    private void initProperties() throws IOException {
+        // Ищем путь к конфигам по ключу
+        String path = System.getProperty("cfg");
+        InputStream is;
+        if (path == null) // иначе берем конфиги из рессурсов
+            is = this.getClass().getClassLoader().getResourceAsStream("demo.properties");
+        else
+            is = new FileInputStream(path);
+        properties = new Properties();
+        properties.load(is);
     }
 }
