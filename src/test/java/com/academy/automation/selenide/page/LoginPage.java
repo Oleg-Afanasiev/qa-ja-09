@@ -10,7 +10,7 @@ public class LoginPage {
     @FindBy(id="email")
     private SelenideElement emailField;
 
-    @FindBy(id="passwd1")
+    @FindBy(id="passwd")
     private SelenideElement passwordField;
 
     @FindBy(id="SubmitLogin")

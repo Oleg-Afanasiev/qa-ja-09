@@ -7,7 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class LoginPage extends BasePage {
-    @FindBy(id="email1")
+    @FindBy(id="email")
     private WebElement emailField;
 
     @FindBy(id="passwd")
