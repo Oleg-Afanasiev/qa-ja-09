@@ -10,20 +10,20 @@
 <!--        </classes>-->
 <!--    </test>-->
 
-    <test name="Login Tests using selenide">
-<!--        <parameter name="browser" value="chrome" />-->
-        <classes>
-            <class name="com.academy.automation.selenide.LoginTests" />
-        </classes>
-    </test>
-<!--    <test name="Login Tests for chrome">-->
+<!--    <test name="Login Tests using selenide">-->
 <!--        <parameter name="browser" value="chrome" />-->
 <!--        <classes>-->
-<!--            <class name="com.academy.automation.LoginTests" />-->
+<!--            <class name="com.academy.automation.selenide.LoginTests" />-->
 <!--        </classes>-->
 <!--    </test>-->
+    <test name="Login Tests for chrome">
+        <parameter name="browser" value="chrome" />
+        <classes>
+            <class name="com.academy.automation.LoginTests" />
+        </classes>
+    </test>
     <listeners>
-        <listener class-name="com.academy.core.TestListener"></listener>
+<!--        <listener class-name="com.academy.core.TestListener"></listener>-->
     </listeners>
 
 </suite>
